@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryCollection;
+use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
 {
@@ -15,17 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $categories = Category::all();
+		return new CategoryCollection($categories);
     }
 
     /**
@@ -36,7 +29,13 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+		$category = Category::create([
+			'name' => $request->input('data.attributes.name'),
+		]);
+		return (new CategoryResource($category))
+				->response()
+				->header('Location', route('categories.show', ['category' => $category] ) )
+				->setStatusCode(201);
     }
 
     /**
@@ -47,18 +46,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        //
+        return (new CategoryResource($category))->response()->setStatusCode(200);
     }
 
     /**
@@ -70,7 +58,8 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->input('data.attributes'));
+		return new CategoryResource($category);
     }
 
     /**

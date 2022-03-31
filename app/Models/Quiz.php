@@ -11,7 +11,7 @@ class Quiz extends Model
 	use HasFactory;
 	use Sluggable;
 
-	protected $fillable = ['name', 'examiner_id', 'year', 'semester'];
+	protected $fillable = ['name', 'examiner_id', 'category_id', 'year', 'semester'];
 
 	public function sluggable(): array
 	{
@@ -30,5 +30,10 @@ class Quiz extends Model
 	public function examiner()
 	{
 		return $this->belongsTo(Examiner::class);
+	}
+
+	public function category()
+	{
+		return $this->belongsTo(Category::class);
 	}
 }

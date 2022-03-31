@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-			$table->unsignedBigInteger('quiz_id')->index();
 			$table->text('body');
+			$table->foreignId('quiz_id')->constrained('quizzes');
             $table->timestamps();
         });
     }

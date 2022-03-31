@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\UpdateQuizRequest;
+use App\Http\Resources\QuizCollection;
+use App\Http\Resources\QuizResource;
 
 class QuizController extends Controller
 {
@@ -15,17 +17,9 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $quizzes = Quiz::with(['examiner', 'category'])->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+		return new QuizCollection($quizzes);
     }
 
     /**
@@ -36,7 +30,9 @@ class QuizController extends Controller
      */
     public function store(StoreQuizRequest $request)
     {
-        //
+        $quiz = Quiz::create($request->all());
+
+		return (new QuizResource($quiz))->response()->setStatusCode(201);
     }
 
     /**
@@ -47,18 +43,7 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Quiz  $quiz
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Quiz $quiz)
-    {
-        //
+        return (new QuizResource($quiz))->response()->setStatusCode(200);
     }
 
     /**
@@ -81,6 +66,7 @@ class QuizController extends Controller
      */
     public function destroy(Quiz $quiz)
     {
-        //
+        $quiz->delete();
+		return response()->json(null, 204);
     }
 }

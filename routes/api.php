@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExaminerController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuizController;
 use App\Models\Examiner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,4 +26,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 	});
 });
 
-Route::resource('examiners', [ExaminerController:: class]);
+Route::apiResource('examiners', ExaminerController::class);
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('quizzes', QuizController::class);
+Route::apiResource('questions', QuestionController::class);
+Route::apiResource('questions/{question}/answers', 'QuestionController@answers');
+Route::apiResource('answers', AnswerController::class);

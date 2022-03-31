@@ -19,7 +19,8 @@ return new class extends Migration
 			$table->string('slug')->unique();
 			$table->string('year');
 			$table->string('semester');
-			$table->unsignedBigInteger('examiner_id');
+			$table->foreignId('examiner_id')->constrained('examiners');
+			$table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }
