@@ -18,12 +18,4 @@ class CategoryCollection extends ResourceCollection
 			'data' => $this->collection,
 		];
 	}
-
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
-		];
-	}
 }

@@ -27,8 +27,8 @@ class UpdateCategoryRequest extends FormRequest
 			'data' => 'required|array',
 			'data.id' => 'required|string',
 			'data.type' => 'required|in:categories',
-			'data.attributes' => 'sometimes|required|array',
-			'data.attributes.name' => 'sometimes|required|string',
+			'data.attributes' => 'sometimes|array',
+			'data.attributes.name' => 'sometimes|string',
         ];
     }
 }

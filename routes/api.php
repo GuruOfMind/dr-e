@@ -26,8 +26,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 	});
 });
 
-Route::apiResource('examiners', ExaminerController::class);
 Route::apiResource('categories', CategoryController::class);
+Route::apiResource('examiners', ExaminerController::class);
 Route::apiResource('quizzes', QuizController::class);
 Route::apiResource('questions', QuestionController::class);
 Route::apiResource('questions/{question}/answers', 'QuestionController@answers');

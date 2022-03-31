@@ -13,7 +13,7 @@ class UpdateExaminerRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateExaminerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'data' => 'required|array',
+			'data.id' => 'required|string',
+			'data.type' => 'required|in:examiners',
+			'data.attributes' => 'sometimes|array',
+			'data.attributes.name' => 'sometimes|string',
         ];
     }
 }

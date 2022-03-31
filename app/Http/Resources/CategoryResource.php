@@ -24,12 +24,4 @@ class CategoryResource extends JsonResource
 
 		];
 	}
-
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
-		];
-	}
 }

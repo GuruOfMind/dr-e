@@ -29,8 +29,13 @@ class ExaminerController extends Controller
 	 */
 	public function store(StoreExaminerRequest $request)
 	{
-		$examiner = Examiner::create($request->all());
-		return (new ExaminerResource($examiner))->response()->setStatusCode(201);
+		$examiner = Examiner::create([
+			'name' => $request->input('data.attributes.name'),
+		]);
+		return (new ExaminerResource($examiner))
+				->response()
+				->header('Location', route('examiners.show', ['examiner' => $examiner]))
+				->setStatusCode(201);
 	}
 
 	/**
@@ -41,7 +46,9 @@ class ExaminerController extends Controller
 	 */
 	public function show(Examiner $examiner)
 	{
-		return (new ExaminerResource($examiner))->response()->setStatusCode(200);
+		return (new ExaminerResource($examiner))
+				->response()
+				->setStatusCode(200);
 	}
 
 	/**
@@ -53,7 +60,10 @@ class ExaminerController extends Controller
 	 */
 	public function update(UpdateExaminerRequest $request, Examiner $examiner)
 	{
-		//
+		$examiner->update($request->input('data.attributes'));
+		return (new ExaminerResource($examiner))
+				->response()
+				->setStatusCode(200);
 	}
 
 	/**
@@ -65,6 +75,8 @@ class ExaminerController extends Controller
 	public function destroy(Examiner $examiner)
 	{
 		$examiner->delete();
-		return response()->json(null, 204);
+		return response()
+		->json(null)
+		->setStatusCode(204);
 	}
 }

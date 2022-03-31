@@ -15,24 +15,7 @@ class ExaminerCollection extends ResourceCollection
 	public function toArray($request)
 	{
 		return [
-			'data' => [
-				'examiners' => $this->collection->map(
-					function ($data) {
-						return [
-							'id' => $data->id,
-							'name' => $data->name
-						];
-					}
-				)
-			]
-		];
-	}
-
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
+			'data' => $this->collection
 		];
 	}
 }

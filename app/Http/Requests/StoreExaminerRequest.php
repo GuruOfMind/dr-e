@@ -24,7 +24,10 @@ class StoreExaminerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'data' => 'required|array',
+			'data.type' => 'required|in:examiners',
+			'data.attributes' => 'required|array',
+			'data.attributes.name' => 'required|string',
         ];
     }
 }

@@ -15,18 +15,11 @@ class ExaminerResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-			'examiner' => [
-				'id' => $this->id,
+			'id' => $this->id,
+			'type' => 'examiners',
+			'attributes' => [
 				'name' => $this->name
-			]
-		];
-	}
-
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
+			],
 		];
 	}
 }
