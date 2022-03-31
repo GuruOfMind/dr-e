@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAnswerRequest;
 use App\Http\Requests\UpdateAnswerRequest;
 use App\Http\Resources\AnswerCollection;
 use App\Http\Resources\AnswerResource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class AnswerController extends Controller
 {
@@ -17,7 +18,7 @@ class AnswerController extends Controller
 	 */
 	public function index()
 	{
-		$answers = Answer::all();
+		$answers = QueryBuilder::for(Answer::class)->allowedFilters(['is_correct', 'question_id'])->get();
 		return new AnswerCollection($answers);
 	}
 

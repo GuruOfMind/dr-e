@@ -15,28 +15,8 @@ class AnswerCollection extends ResourceCollection
 	public function toArray($request)
     {
         return [
-			'data' => [
-				'answers' => $this->collection->map(
-					function ($data) {
-						return [
-							'id' => $data->id,
-							'body' => $data->body,
-							'is_correct' => $data->is_correct,
-							'relationships' => [
-								'question' => $data->question_id
-							],
-						];
-					}
-				)
-			]
+			'data' => $this->collection
 		];
 	}
 
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
-		];
-	}
 }

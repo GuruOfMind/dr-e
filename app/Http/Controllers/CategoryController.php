@@ -7,6 +7,9 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\JSONAPICollection;
+use App\Http\Resources\JSONAPIResource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryController extends Controller
 {
@@ -17,8 +20,8 @@ class CategoryController extends Controller
 	 */
 	public function index()
 	{
-		$categories = Category::all();
-		return new CategoryCollection($categories);
+		$categories = QueryBuilder::for(Category::class)->allowedSorts(['name'])->get();
+		return new JSONAPICollection($categories);
 	}
 
 	/**
@@ -32,7 +35,7 @@ class CategoryController extends Controller
 		$category = Category::create([
 			'name' => $request->input('data.attributes.name'),
 		]);
-		return (new CategoryResource($category))
+		return (new JSONAPIResource($category))
 			->response()
 			->header('Location', route('categories.show', ['category' => $category]))
 			->setStatusCode(201);
@@ -46,7 +49,7 @@ class CategoryController extends Controller
 	 */
 	public function show(Category $category)
 	{
-		return (new CategoryResource($category))
+		return (new JSONAPIResource($category))
 				->response()
 				->setStatusCode(200);
 	}
@@ -61,7 +64,7 @@ class CategoryController extends Controller
 	public function update(UpdateCategoryRequest $request, Category $category)
 	{
 		$category->update($request->input('data.attributes'));
-		return (new CategoryResource($category))
+		return (new JSONAPIResource($category))
 				->response()
 				->setStatusCode(200);
 	}

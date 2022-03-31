@@ -7,6 +7,7 @@ use App\Http\Requests\StoreExaminerRequest;
 use App\Http\Requests\UpdateExaminerRequest;
 use App\Http\Resources\ExaminerCollection;
 use App\Http\Resources\ExaminerResource;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ExaminerController extends Controller
 {
@@ -17,7 +18,7 @@ class ExaminerController extends Controller
 	 */
 	public function index()
 	{
-		$examiners = Examiner::paginate();
+		$examiners = QueryBuilder::for(Examiner::class)->allowedSorts(['name'])->get();
 		return new ExaminerCollection($examiners);
 	}
 

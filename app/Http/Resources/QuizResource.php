@@ -15,27 +15,18 @@ class QuizResource extends JsonResource
 	public function toArray($request)
 	{
 		return [
-
-			'quiz' => [
-				'id' => $this->id,
+			'id' => $this->id,
+			'type' => 'quizzes',
+			'atttributes' => [
 				'name' => $this->name,
 				'slug' => $this->slug,
 				'year' => $this->year,
 				'semester' => $this->semester,
-				'relationships' => [
-					new ExaminerResource($this->examiner),
-					new CategoryResource($this->category),
-				],
-			]
-
-		];
-	}
-
-	public function with($request)
-	{
-		return [
-			'error' => [],
-			'isSuccess' => true
+			],
+			'relationships' => [
+				new ExaminerResource($this->examiner),
+				new CategoryResource($this->category),
+			],
 		];
 	}
 }

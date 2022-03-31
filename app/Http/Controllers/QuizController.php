@@ -7,6 +7,8 @@ use App\Http\Requests\StoreQuizRequest;
 use App\Http\Requests\UpdateQuizRequest;
 use App\Http\Resources\QuizCollection;
 use App\Http\Resources\QuizResource;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class QuizController extends Controller
 {
@@ -17,8 +19,10 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::with(['examiner', 'category'])->get();
-
+        $quizzes = QueryBuilder::for(Quiz::class)
+					->allowedFilters(['examiner_id', 'category_id'])
+					->allowedIncludes('examiner')
+					->jsonPaginate();
 		return new QuizCollection($quizzes);
     }
 
@@ -43,7 +47,8 @@ class QuizController extends Controller
      */
     public function show(Quiz $quiz)
     {
-        return (new QuizResource($quiz))->response()->setStatusCode(200);
+		$query = QueryBuilder::for(Quiz::where('id', $quiz))->allowedIncludes('examiner')->get();
+        return (new QuizResource($query))->response()->setStatusCode(200);
     }
 
     /**

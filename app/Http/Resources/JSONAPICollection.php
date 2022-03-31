@@ -2,11 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Examiner;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class QuizCollection extends ResourceCollection
+class JSONAPICollection extends ResourceCollection
 {
+	public $collects = JSONAPIResource::class;
+
 	/**
 	 * Transform the resource collection into an array.
 	 *
@@ -15,6 +16,9 @@ class QuizCollection extends ResourceCollection
 	 */
 	public function toArray($request)
 	{
-		return $this->collection;
+
+		return [
+			'data' => $this->collection,
+		];
 	}
 }

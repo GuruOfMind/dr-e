@@ -24,7 +24,12 @@ class StoreQuizRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+			'data' => 'required|array',
+			'data.type' => 'required|in:examiners',
+			'data.attributes' => 'required|array',
+			'data.attributes.year' => 'required|string',
+			'data.attributes.semester' => 'required|string',
+			'data.attributes.examiner_id' => 'required|string',
         ];
     }
 }
