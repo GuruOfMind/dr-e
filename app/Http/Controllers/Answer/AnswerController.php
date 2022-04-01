@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Answer;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\JSONAPIRequest;
 use App\Models\Answer;
-use App\Http\Requests\StoreAnswerRequest;
-use App\Http\Requests\UpdateAnswerRequest;
 use App\Http\Resources\JSONAPICollection;
 use App\Http\Resources\JSONAPIResource;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -28,7 +28,7 @@ class AnswerController extends Controller
 	 * @param  \App\Http\Requests\StoreAnswerRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(StoreAnswerRequest $request)
+	public function store(JSONAPIRequest $request)
 	{
 		//
 	}
@@ -51,7 +51,7 @@ class AnswerController extends Controller
 	 * @param  \App\Models\Answer  $answer
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateAnswerRequest $request, Answer $answer)
+	public function update(JSONAPIRequest $request, Answer $answer)
 	{
 		//
 	}

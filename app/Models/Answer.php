@@ -11,7 +11,7 @@ class Answer extends AbstractAPIModel
 
 	protected $fillable = ['content', 'question_id', 'is_correct'];
 
-	public function question(){
+	public function questions(){
 		return $this->belongsTo(Question::class);
 	}
 		

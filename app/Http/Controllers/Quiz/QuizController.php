@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Quiz;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\JSONAPIRequest;
 use App\Models\Quiz;
-use App\Http\Requests\StoreQuizRequest;
-use App\Http\Requests\UpdateQuizRequest;
 use App\Http\Resources\JSONAPICollection;
 use App\Http\Resources\JSONAPIResource;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -31,7 +31,7 @@ class QuizController extends Controller
 	 * @param  \App\Http\Requests\StoreQuizRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(StoreQuizRequest $request)
+	public function store(JSONAPIRequest $request)
 	{
 		$quiz = Quiz::create($request->all());
 
@@ -44,7 +44,7 @@ class QuizController extends Controller
 	 * @param  \App\Models\Quiz  $quiz
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Quiz $quiz)
+	public function show($quiz)
 	{
 		$query = QueryBuilder::for($quiz)->allowedIncludes('examiner')->firstOrFail();
 
@@ -58,7 +58,7 @@ class QuizController extends Controller
 	 * @param  \App\Models\Quiz  $quiz
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateQuizRequest $request, Quiz $quiz)
+	public function update(JSONAPIRequest $request, Quiz $quiz)
 	{
 		//
 	}

@@ -27,12 +27,12 @@ class Quiz extends AbstractAPIModel
 		return $this->hasMany(Question::class);
 	}
 
-	public function examiner()
+	public function examiners()
 	{
 		return $this->belongsTo(Examiner::class);
 	}
 
-	public function category()
+	public function categories()
 	{
 		return $this->belongsTo(Category::class);
 	}

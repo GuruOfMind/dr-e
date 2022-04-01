@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Examiner;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\JSONAPIRequest;
 use App\Models\Examiner;
-use App\Http\Requests\StoreExaminerRequest;
-use App\Http\Requests\UpdateExaminerRequest;
 use App\Http\Resources\JSONAPICollection;
 use App\Http\Resources\JSONAPIResource;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -28,7 +28,7 @@ class ExaminerController extends Controller
 	 * @param  \App\Http\Requests\StoreExaminerRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(StoreExaminerRequest $request)
+	public function store(JSONAPIRequest $request)
 	{
 		$examiner = Examiner::create([
 			'name' => $request->input('data.attributes.name'),
@@ -59,7 +59,7 @@ class ExaminerController extends Controller
 	 * @param  \App\Models\Examiner  $examiner
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateExaminerRequest $request, Examiner $examiner)
+	public function update(JSONAPIRequest $request, Examiner $examiner)
 	{
 		$examiner->update($request->input('data.attributes'));
 		return (new JSONAPIResource($examiner))

@@ -14,7 +14,7 @@ class Question extends AbstractAPIModel
 		'quiz_id'
 	];
 
-	public function quiz(){
+	public function quizzes(){
 		return $this->belongsTo(Quiz::class);
 	}
 
