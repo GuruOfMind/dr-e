@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Answer;
 use App\Http\Requests\StoreAnswerRequest;
 use App\Http\Requests\UpdateAnswerRequest;
-use App\Http\Resources\AnswerCollection;
-use App\Http\Resources\AnswerResource;
+use App\Http\Resources\JSONAPICollection;
+use App\Http\Resources\JSONAPIResource;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class AnswerController extends Controller
@@ -19,7 +19,7 @@ class AnswerController extends Controller
 	public function index()
 	{
 		$answers = QueryBuilder::for(Answer::class)->allowedFilters(['is_correct', 'question_id'])->get();
-		return new AnswerCollection($answers);
+		return new JSONAPICollection($answers);
 	}
 
 	/**
@@ -41,7 +41,7 @@ class AnswerController extends Controller
 	 */
 	public function show(Answer $answer)
 	{
-		return (new AnswerResource($answer))->response()->setStatusCode(200);
+		return (new JSONAPIResource($answer))->response()->setStatusCode(200);
 	}
 
 	/**

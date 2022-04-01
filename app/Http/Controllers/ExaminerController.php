@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Examiner;
 use App\Http\Requests\StoreExaminerRequest;
 use App\Http\Requests\UpdateExaminerRequest;
-use App\Http\Resources\ExaminerCollection;
-use App\Http\Resources\ExaminerResource;
+use App\Http\Resources\JSONAPICollection;
+use App\Http\Resources\JSONAPIResource;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ExaminerController extends Controller
@@ -19,7 +19,7 @@ class ExaminerController extends Controller
 	public function index()
 	{
 		$examiners = QueryBuilder::for(Examiner::class)->allowedSorts(['name'])->get();
-		return new ExaminerCollection($examiners);
+		return new JSONAPICollection($examiners);
 	}
 
 	/**
@@ -33,10 +33,10 @@ class ExaminerController extends Controller
 		$examiner = Examiner::create([
 			'name' => $request->input('data.attributes.name'),
 		]);
-		return (new ExaminerResource($examiner))
-				->response()
-				->header('Location', route('examiners.show', ['examiner' => $examiner]))
-				->setStatusCode(201);
+		return (new JSONAPIResource($examiner))
+			->response()
+			->header('Location', route('examiners.show', ['examiner' => $examiner]))
+			->setStatusCode(201);
 	}
 
 	/**
@@ -47,9 +47,9 @@ class ExaminerController extends Controller
 	 */
 	public function show(Examiner $examiner)
 	{
-		return (new ExaminerResource($examiner))
-				->response()
-				->setStatusCode(200);
+		return (new JSONAPIResource($examiner))
+			->response()
+			->setStatusCode(200);
 	}
 
 	/**
@@ -62,9 +62,9 @@ class ExaminerController extends Controller
 	public function update(UpdateExaminerRequest $request, Examiner $examiner)
 	{
 		$examiner->update($request->input('data.attributes'));
-		return (new ExaminerResource($examiner))
-				->response()
-				->setStatusCode(200);
+		return (new JSONAPIResource($examiner))
+			->response()
+			->setStatusCode(200);
 	}
 
 	/**
@@ -77,7 +77,7 @@ class ExaminerController extends Controller
 	{
 		$examiner->delete();
 		return response()
-		->json(null)
-		->setStatusCode(204);
+			->json(null)
+			->setStatusCode(204);
 	}
 }

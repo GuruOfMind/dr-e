@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Question extends AbstractAPIModel
 {
     use HasFactory;
 
@@ -18,7 +18,13 @@ class Question extends Model
 		return $this->belongsTo(Quiz::class);
 	}
 
-	public function answer() {
+	public function answers() {
 		return $this->hasMany(Answer::class);
+	}
+
+		
+	public function type()
+	{
+		return 'questions';
 	}
 }

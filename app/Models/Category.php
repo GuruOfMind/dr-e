@@ -23,7 +23,7 @@ class Category extends AbstractAPIModel
 		];
 	}
 
-	public function Quiz()
+	public function quizzes()
 	{
 		return $this->hasMany(Quiz::class);
 	}

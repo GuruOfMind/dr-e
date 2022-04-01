@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Question;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
-use App\Http\Resources\QuestionCollection;
-use App\Http\Resources\QuestionResource;
+use App\Http\Resources\JSONAPICollection;
+use App\Http\Resources\JSONAPIResource;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
@@ -19,7 +19,7 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::paginate();
-		return new QuestionCollection($questions);
+		return new JSONAPICollection($questions);
     }
 
     /**
@@ -32,7 +32,7 @@ class QuestionController extends Controller
     {
 		$question = Question::create($request->all());
 
-		return (new QuestionResource($question))->response()->setStatusCode(201);
+		return (new JSONAPIResource($question))->response()->setStatusCode(201);
     }
 
     /**
@@ -43,7 +43,7 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-		return (new QuestionResource($question))->response()->setStatusCode(200);
+		return (new JSONAPIResource($question))->response()->setStatusCode(200);
     }
 
     /**
