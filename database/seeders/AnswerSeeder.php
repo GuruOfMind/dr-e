@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Answer;
+use App\Models\Question;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,23 +17,9 @@ class AnswerSeeder extends Seeder
      */
     public function run()
     {
-        $faker = \Faker\Factory::create('ar_SA');
-		$questionID = DB::table('questions')->pluck('id');
-		
-		foreach ($questionID as $question_id) {
-		
-			for ($i = 0; $i < 3; $i++) {
-				Answer::create([
-					'body' => $faker->sentence($nbWords = 4),
-					'is_correct' => false,
-					'question_id' => $question_id,
-				]);
-			}
-			Answer::create([
-				'body' => $faker->sentence($nbWords = 4),
-				'is_correct' => true,
-				'question_id' => $question_id,
-			]);
-		}
+		Question::all()->each(function(Question $question){
+			$question->answers()->saveMany(Answer::factory(3)->create(['question_id'=>$question->id]));
+			$question->answers()->saveMany(Answer::factory(1)->correct()->create(['question_id'=>$question->id]));
+		});
     }
 }

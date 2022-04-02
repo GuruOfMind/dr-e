@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\JSONAPIResource;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,7 +22,7 @@ class CategoryTest extends TestCase
 		$category = Category::create([
 			'name' => 'a',
 		]);
-		return new CategoryResource($category);
+		return new JSONAPIResource($category);
 
 		$this->getJson('/api/categories/1')->assertStatus(200)->assertJson(
 				[

@@ -17,7 +17,7 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'body' => $this->faker->realTextBetween(30, 100)
         ];
     }
 }

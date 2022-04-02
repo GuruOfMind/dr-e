@@ -7,10 +7,18 @@ use App\Http\Requests\JSONAPIRequest;
 use App\Models\Examiner;
 use App\Http\Resources\JSONAPICollection;
 use App\Http\Resources\JSONAPIResource;
+use App\Services\JSONAPIService;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class ExaminerController extends Controller
 {
+	private $service;
+
+	public function __construct(JSONAPIService $service)
+	{
+		$this->service = $service;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,66 +26,51 @@ class ExaminerController extends Controller
 	 */
 	public function index()
 	{
-		$examiners = QueryBuilder::for(Examiner::class)->allowedSorts(['name'])->get();
-		return new JSONAPICollection($examiners);
+		return $this->service->fetchResources(Examiner::class, 'examiners');
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  \App\Http\Requests\StoreExaminerRequest  $request
+	 * @param  \App\Http\Requests\StoreAnswerRequest  $request
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(JSONAPIRequest $request)
 	{
-		$examiner = Examiner::create([
-			'name' => $request->input('data.attributes.name'),
-		]);
-		return (new JSONAPIResource($examiner))
-			->response()
-			->header('Location', route('examiners.show', ['examiner' => $examiner]))
-			->setStatusCode(201);
+		return $this->service->createResource(Examiner::class, $request->input('data.attributes'));
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Models\Examiner  $examiner
+	 * @param  \App\Models\Answer  $examiner
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Examiner $examiner)
+	public function show($examiner)
 	{
-		return (new JSONAPIResource($examiner))
-			->response()
-			->setStatusCode(200);
+		return $this->service->fetchResource(Examiner::class, $examiner, 'examiners');
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  \App\Http\Requests\UpdateExaminerRequest  $request
-	 * @param  \App\Models\Examiner  $examiner
+	 * @param  \App\Http\Requests\UpdateAnswerRequest  $request
+	 * @param  \App\Models\Answer  $examiner
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(JSONAPIRequest $request, Examiner $examiner)
 	{
-		$examiner->update($request->input('data.attributes'));
-		return (new JSONAPIResource($examiner))
-			->response()
-			->setStatusCode(200);
+		return $this->service->updateResource($examiner, $request->input('data.attributes'));
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Models\Examiner  $examiner
+	 * @param  \App\Models\Answer  $examiner
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Examiner $examiner)
 	{
-		$examiner->delete();
-		return response()
-			->json(null)
-			->setStatusCode(204);
+		return $this->service->deleteResource($examiner);
 	}
 }

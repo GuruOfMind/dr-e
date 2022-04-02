@@ -16,12 +16,6 @@ class CategorySeeder extends Seeder
 	public function run()
 	{
 
-		$faker = \Faker\Factory::create('ar_SA');
-		
-		for ($i = 0; $i < 10; $i++) {
-			Category::create([
-				'name' => $faker->unique()->colorName
-			]);
-		}
+		\App\Models\Category::factory(13)->create();
 	}
 }

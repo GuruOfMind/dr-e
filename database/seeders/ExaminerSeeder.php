@@ -15,12 +15,6 @@ class ExaminerSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$faker = \Faker\Factory::create('ar_EG');
-
-		for ($i = 0; $i < 10; $i++) {
-			Examiner::create([
-				'name' => $faker->unique()->name
-			]);
-		}
+		\App\Models\Examiner::factory(16)->create();
 	}
 }

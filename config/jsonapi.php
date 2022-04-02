@@ -5,6 +5,12 @@ return [
 			'allowedSorts' => [
 				'name',
 			],
+			'allowedIncludes' => [
+				
+			],
+			'allowedFilters' => [
+				
+			],
 			'validationRules' => [
 				'create' => [
 					'data.attributes.name' => 'required|string',
@@ -23,6 +29,12 @@ return [
 		'examiners' => [
 			'allowedSorts' => [
 				'name',
+			],
+			'allowedIncludes' => [
+				
+			],
+			'allowedFilters' => [
+				
 			],
 			'validationRules' => [
 				'create' => [
@@ -57,16 +69,12 @@ return [
 				'create' => [
 					'data.attributes.name' => 'required|string',
 					'data.attributes.year' => 'required|string',
-					'data.attributes.semester' => 'required|string',
-					'data.attributes.examiner_id' => 'required|string',
-					'data.attributes.category_id' => 'required|string',
+					'data.attributes.semester' => 'required|string'
 				],
 				'update' => [
 					'data.attributes.name' => 'sometimes|required|string',
 					'data.attributes.year' => 'sometimes|required|string',
-					'data.attributes.semester' => 'sometimes|required|string',
-					'data.attributes.examiner_id' => 'sometimes|required|string',
-					'data.attributes.category_id' => 'sometimes|required|string',
+					'data.attributes.semester' => 'sometimes|required|string'
 				]
 			],
 			'relationships' => [
@@ -81,6 +89,15 @@ return [
 			]
 		],
 		'questions' => [
+			'allowedSorts' => [
+				'name',
+			],
+			'allowedIncludes' => [
+				
+			],
+			'allowedFilters' => [
+				
+			],
 			'relationships' => [
 				[
 					'type' => 'quizzes',
@@ -89,6 +106,15 @@ return [
 			]
 		],
 		'answers' => [
+			'allowedSorts' => [
+				'name',
+			],
+			'allowedIncludes' => [
+				
+			],
+			'allowedFilters' => [
+				
+			],
 			'relationships' => [
 				[
 					'type' => 'questions',

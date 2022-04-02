@@ -11,7 +11,7 @@ class Quiz extends AbstractAPIModel
 	use HasFactory;
 	use Sluggable;
 
-	protected $fillable = ['name', 'examiner_id', 'category_id', 'year', 'semester'];
+	protected $fillable = ['name', 'year', 'semester'];
 
 	public function sluggable(): array
 	{
@@ -21,23 +21,23 @@ class Quiz extends AbstractAPIModel
 			]
 		];
 	}
-	
+
 	public function questions()
 	{
 		return $this->hasMany(Question::class);
 	}
 
-	public function examiners()
+	public function examiner()
 	{
 		return $this->belongsTo(Examiner::class);
 	}
 
-	public function categories()
+	public function category()
 	{
 		return $this->belongsTo(Category::class);
 	}
 
-	
+
 	public function type()
 	{
 		return 'quizzes';

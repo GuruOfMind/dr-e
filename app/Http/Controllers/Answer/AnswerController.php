@@ -5,12 +5,17 @@ namespace App\Http\Controllers\Answer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JSONAPIRequest;
 use App\Models\Answer;
-use App\Http\Resources\JSONAPICollection;
-use App\Http\Resources\JSONAPIResource;
-use Spatie\QueryBuilder\QueryBuilder;
+use App\Services\JSONAPIService;
 
 class AnswerController extends Controller
 {
+	private $service;
+	
+	public function __construct(JSONAPIService $service)
+	{
+		$this->service = $service;
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -18,8 +23,7 @@ class AnswerController extends Controller
 	 */
 	public function index()
 	{
-		$answers = QueryBuilder::for(Answer::class)->allowedFilters(['is_correct', 'question_id'])->get();
-		return new JSONAPICollection($answers);
+		return $this->service->fetchResources(Answer::class, 'answers');
 	}
 
 	/**
@@ -30,7 +34,7 @@ class AnswerController extends Controller
 	 */
 	public function store(JSONAPIRequest $request)
 	{
-		//
+		return $this->service->createResource(Answer::class, $request->input('data.attributes'));
 	}
 
 	/**
@@ -39,9 +43,9 @@ class AnswerController extends Controller
 	 * @param  \App\Models\Answer  $answer
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Answer $answer)
+	public function show($answer)
 	{
-		return (new JSONAPIResource($answer))->response()->setStatusCode(200);
+		return $this->service->fetchResource(Answer::class, $answer, 'answers');
 	}
 
 	/**
@@ -53,7 +57,7 @@ class AnswerController extends Controller
 	 */
 	public function update(JSONAPIRequest $request, Answer $answer)
 	{
-		//
+		return $this->service->updateResource($answer, $request->input('data.attributes'));
 	}
 
 	/**
@@ -64,7 +68,6 @@ class AnswerController extends Controller
 	 */
 	public function destroy(Answer $answer)
 	{
-		$answer->delete();
-		return response()->json(null, 204);
+		return $this->service->deleteResource($answer);
 	}
 }

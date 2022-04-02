@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
+use App\Models\Examiner;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -9,15 +11,17 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class QuizFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
-    {
-        return [
-            //
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function definition()
+	{
+		return [
+			'name' => $this->faker->unique()->company,
+			'year' => $this->faker->year,
+			'semester' => $this->faker->numberBetween(1, 3)
+		];
+	}
 }

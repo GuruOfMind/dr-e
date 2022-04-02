@@ -9,9 +9,9 @@ class Answer extends AbstractAPIModel
 {
     use HasFactory;
 
-	protected $fillable = ['content', 'question_id', 'is_correct'];
+	protected $fillable = ['content', 'is_correct'];
 
-	public function questions(){
+	public function question(){
 		return $this->belongsTo(Question::class);
 	}
 		

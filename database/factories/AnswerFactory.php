@@ -9,15 +9,25 @@ use Illuminate\Database\Eloquent\Factories\Factory;
  */
 class AnswerFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition()
-    {
-        return [
-            //
-        ];
-    }
+	/**
+	 * Define the model's default state.
+	 *
+	 * @return array<string, mixed>
+	 */
+	public function definition()
+	{
+		return [
+			'body' => $this->faker->sentence($nbWords = 4),
+			'is_correct' => false
+		];
+	}
+
+	public function correct()
+	{
+		return $this->state(function (array $attributes) {
+			return [
+				'is_correct' => true,
+			];
+		});
+	}
 }

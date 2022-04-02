@@ -10,11 +10,10 @@ class Question extends AbstractAPIModel
     use HasFactory;
 
 	protected $fillable = [
-		'body',
-		'quiz_id'
+		'body'
 	];
 
-	public function quizzes(){
+	public function quiz(){
 		return $this->belongsTo(Quiz::class);
 	}
 
