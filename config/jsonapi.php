@@ -6,11 +6,9 @@ return [
 				'name',
 			],
 			'allowedIncludes' => [
-				
+				'quizzes'
 			],
-			'allowedFilters' => [
-				
-			],
+			'allowedFilters' => [],
 			'validationRules' => [
 				'create' => [
 					'data.attributes.name' => 'required|string',
@@ -19,23 +17,14 @@ return [
 					'data.attributes.name' => 'sometimes|required|string',
 				]
 			],
-			'relationships' => [
-				[
-					'type' => 'quizzes',
-					'method' => 'quizzes',
-				]
-			]
+			'relationships' => []
 		],
 		'examiners' => [
 			'allowedSorts' => [
 				'name',
 			],
-			'allowedIncludes' => [
-				
-			],
-			'allowedFilters' => [
-				
-			],
+			'allowedIncludes' => [],
+			'allowedFilters' => [],
 			'validationRules' => [
 				'create' => [
 					'data.attributes.name' => 'required|string',
@@ -44,12 +33,7 @@ return [
 					'data.attributes.name' => 'sometimes|required|string',
 				]
 			],
-			'relationships' => [
-				[
-					'type' => 'quizzes',
-					'method' => 'quizzes',
-				]
-			]
+			'relationships' => []
 		],
 		'quizzes' => [
 			'allowedSorts' => [
@@ -59,7 +43,8 @@ return [
 				'category_id',
 			],
 			'allowedIncludes' => [
-				'categories'
+				'category',
+				'examiner'
 			],
 			'allowedFilters' => [
 				'examiner_id',
@@ -80,11 +65,11 @@ return [
 			'relationships' => [
 				[
 					'type' => 'categories',
-					'method' => 'categories',
+					'method' => 'category',
 				],
 				[
 					'type' => 'examiners',
-					'method' => 'examiners',
+					'method' => 'examiner',
 				]
 			]
 		],
@@ -92,16 +77,12 @@ return [
 			'allowedSorts' => [
 				'name',
 			],
-			'allowedIncludes' => [
-				
-			],
-			'allowedFilters' => [
-				
-			],
+			'allowedIncludes' => [],
+			'allowedFilters' => [],
 			'relationships' => [
 				[
 					'type' => 'quizzes',
-					'method' => 'quizzes',
+					'method' => 'quiz',
 				]
 			]
 		],
@@ -110,15 +91,13 @@ return [
 				'name',
 			],
 			'allowedIncludes' => [
-				
+				'questions'
 			],
-			'allowedFilters' => [
-				
-			],
+			'allowedFilters' => [],
 			'relationships' => [
 				[
 					'type' => 'questions',
-					'method' => 'questions',
+					'method' => 'question',
 				]
 			]
 		],

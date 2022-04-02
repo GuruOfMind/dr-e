@@ -22,6 +22,7 @@ class JSONAPIResource extends JsonResource
 			'type' => $this->type(),
 			'attributes' => $this->allowedAttributes(),
 			'relationships' => $this->prepareRelationships(),
+			// 'links' => "/api/{$this->type()}/{$this->id}"
 		];
 	}
 

@@ -13,6 +13,8 @@ class Quiz extends AbstractAPIModel
 
 	protected $fillable = ['name', 'year', 'semester'];
 
+	protected $hidden = ['category_id', 'examiner_id'];
+
 	public function sluggable(): array
 	{
 		return [

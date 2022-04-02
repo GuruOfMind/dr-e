@@ -7,21 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends AbstractAPIModel
 {
-    use HasFactory;
+	use HasFactory;
 
 	protected $fillable = [
 		'body'
 	];
 
-	public function quiz(){
+	protected $hidden = ['quiz_id'];
+
+	public function quiz()
+	{
 		return $this->belongsTo(Quiz::class);
 	}
 
-	public function answers() {
+	public function answers()
+	{
 		return $this->hasMany(Answer::class);
 	}
 
-		
 	public function type()
 	{
 		return 'questions';
